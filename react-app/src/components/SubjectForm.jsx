@@ -1,7 +1,7 @@
 // src/components/SubjectForm.jsx
 import React from 'react';
 
-function SubjectForm() {
+function SubjectForm({ setSubject, setFoamLine, handleAnalyze }) {
   return (
     <section className="form-container">
       <div className="input-group">
@@ -11,6 +11,8 @@ function SubjectForm() {
           type="text"
           placeholder="Enter your subject line..."
           className="input-field"
+          // 2. When the user types, call the setSubject function
+          onChange={(e) => setSubject(e.target.value)}
         />
       </div>
       <div className="input-group">
@@ -20,9 +22,14 @@ function SubjectForm() {
           placeholder="Enter the first line of your email..."
           className="textarea-field"
           rows="3"
+          // 3. When the user types, call the setFoamLine function
+          onChange={(e) => setFoamLine(e.target.value)}
         ></textarea>
       </div>
-      <button className="analyze-button">Analyze</button>
+      {/* 4. When the button is clicked, call the handleAnalyze function */}
+      <button onClick={handleAnalyze} className="analyze-button">
+        Analyze
+      </button>
     </section>
   );
 }
