@@ -1,7 +1,6 @@
 // src/components/ResultsDisplay.jsx
 
 function ResultsDisplay({ results, error, isLoading }) {
-  // 1. Show a loading message when the API call is in progress
   if (isLoading) {
     return (
       <section className="results-container">
@@ -11,7 +10,6 @@ function ResultsDisplay({ results, error, isLoading }) {
     );
   }
 
-  // 2. Show an error message if the API call failed
   if (error) {
     return (
       <section className="results-container">
@@ -21,7 +19,6 @@ function ResultsDisplay({ results, error, isLoading }) {
     );
   }
 
-  // 3. Show the initial placeholder message if there are no results yet
   if (!results) {
     return (
       <section className="results-container">
@@ -31,7 +28,16 @@ function ResultsDisplay({ results, error, isLoading }) {
     );
   }
 
-  // 4. If everything is successful, show the results
+  // --- TEXT TRUNCATION LOGIC ---
+  const truncatedSubject = results.subject.length > 75
+    ? `${results.subject.substring(0, 75)}...`
+    : results.subject;
+
+  const truncatedFoamLine = results.foamLine.length > 150
+    ? `${results.foamLine.substring(0, 150)}...`
+    : results.foamLine;
+  // -----------------------------
+
   return (
     <section className="results-container">
       <h2>Analysis</h2>
@@ -47,9 +53,9 @@ function ResultsDisplay({ results, error, isLoading }) {
       <div className="preview-box">
         <p>
           <strong>Subject: </strong>
-          <span>{results.subject}</span>
+          <span>{truncatedSubject}</span>
         </p>
-        <p className="preview-body">{results.foamLine}</p>
+        <p className="preview-body">{truncatedFoamLine}</p>
       </div>
     </section>
   );

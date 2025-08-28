@@ -14,11 +14,24 @@ function App() {
   const [error, setError] = useState(null);
 
   const handleAnalyze = async () => {
-    setIsLoading(true);
     setError(null);
-    setResults(null); // Clear previous results for a better user experience
+    setResults(null);
 
-    // We create a specific instruction (a "prompt") for the AI model.
+    // --- INPUT VALIDATION ---
+    // Check for empty inputs first
+    if (!subject.trim() || !foamLine.trim()) {
+      setError("Please fill out both the subject and the foam line.");
+      return; // Stop the function
+    }
+    // Check for long inputs
+    if (subject.length > 300 || foamLine.length > 500) {
+      setError("Input is too long. Please shorten the subject and foam line.");
+      return; // Stop the function
+    }
+    // -------------------------
+
+    setIsLoading(true);
+
     const prompt = `Analyze the following email subject and first line for spam-like qualities. Respond with a single word: "Good", "Okay", or "Spam".
   
     Subject: "${subject}"
@@ -31,13 +44,12 @@ function App() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          // Access the API key securely from your environment variables
           'Authorization': `Bearer ${import.meta.env.VITE_COHERE_API_KEY}`
         },
         body: JSON.stringify({
           prompt: prompt,
           max_tokens: 10,
-          temperature: 0.1, // Low temperature makes the AI more predictable
+          temperature: 0.1,
         })
       });
 
@@ -46,12 +58,11 @@ function App() {
       }
 
       const data = await response.json();
-      // The AI's answer is located in the `text` property of the first generation
       const spamScore = data.generations[0].text.trim();
 
       const analysis = {
         length: subject.length,
-        spamScore: spamScore, // The result from the API!
+        spamScore: spamScore,
         subject: subject,
         foamLine: foamLine,
       };
@@ -60,7 +71,7 @@ function App() {
     } catch (err) {
       setError(err.message);
     } finally {
-      setIsLoading(false); // This will run whether the API call succeeded or failed
+      setIsLoading(false);
     }
   };
 
@@ -76,12 +87,12 @@ function App() {
           setSubject={setSubject}
           setFoamLine={setFoamLine}
           handleAnalyze={handleAnalyze}
-          isLoading={isLoading} // Pass loading state to the form
+          isLoading={isLoading}
         />
         <ResultsDisplay
           results={results}
-          error={error}       // Pass error state to the results display
-          isLoading={isLoading} // Pass loading state to the results display
+          error={error}
+          isLoading={isLoading}
         />
       </main>
     </div>
