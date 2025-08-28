@@ -2,7 +2,7 @@
 
 Welcome! This is a handy tool I built as part of the front-end developer internship assessment for Anslation. It's designed to help marketers and writers quickly test their email subject lines and preview text to improve their email campaigns.
 
-**Live Demo:** [Link will be added here after deployment!]
+**Live Demo:** https://subject-tester.vercel.app/
 
 
 ## What It Does 🤔
