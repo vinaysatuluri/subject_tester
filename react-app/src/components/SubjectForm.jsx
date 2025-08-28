@@ -1,8 +1,11 @@
 // src/components/SubjectForm.jsx
+import './SubjectForm.css';
 
+// This component is all about the inputs. It doesn't hold any data itself,
+// it just tells the main App component what the user is typing.
 function SubjectForm({ setSubject, setFoamLine, handleAnalyze, isLoading }) {
   return (
-    <section className="form-container">
+    <section className="form-container card">
       <div className="input-group">
         <label htmlFor="subject">Subject Line</label>
         <input
@@ -23,12 +26,13 @@ function SubjectForm({ setSubject, setFoamLine, handleAnalyze, isLoading }) {
           onChange={(e) => setFoamLine(e.target.value)}
         ></textarea>
       </div>
-      {/* The button now uses the isLoading prop */}
+      
       <button
         onClick={handleAnalyze}
         className="analyze-button"
         disabled={isLoading}
       >
+        {/* A nice touch: change the button text while loading. */}
         {isLoading ? 'Analyzing...' : 'Analyze'}
       </button>
     </section>

@@ -1,0 +1,37 @@
+/* src/components/ResultsDisplay.css */
+
+.results-container h2, .results-container h3 {
+  margin-top: 0;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+}
+
+.result-item {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.1rem;
+  margin-bottom: 15px;
+}
+
+.result-item span {
+  font-weight: 600;
+}
+
+.preview-box {
+  background-color: var(--background-color);
+  padding: 15px;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  word-wrap: break-word;
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+.preview-box p {
+  margin: 0 0 5px 0;
+}
+
+.preview-body {
+  color: var(--muted-text-color);
+}
