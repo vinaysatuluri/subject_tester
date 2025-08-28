@@ -1,7 +1,6 @@
 // src/components/SubjectForm.jsx
-import React from 'react';
 
-function SubjectForm({ setSubject, setFoamLine, handleAnalyze }) {
+function SubjectForm({ setSubject, setFoamLine, handleAnalyze, isLoading }) {
   return (
     <section className="form-container">
       <div className="input-group">
@@ -11,7 +10,6 @@ function SubjectForm({ setSubject, setFoamLine, handleAnalyze }) {
           type="text"
           placeholder="Enter your subject line..."
           className="input-field"
-          // 2. When the user types, call the setSubject function
           onChange={(e) => setSubject(e.target.value)}
         />
       </div>
@@ -22,13 +20,16 @@ function SubjectForm({ setSubject, setFoamLine, handleAnalyze }) {
           placeholder="Enter the first line of your email..."
           className="textarea-field"
           rows="3"
-          // 3. When the user types, call the setFoamLine function
           onChange={(e) => setFoamLine(e.target.value)}
         ></textarea>
       </div>
-      {/* 4. When the button is clicked, call the handleAnalyze function */}
-      <button onClick={handleAnalyze} className="analyze-button">
-        Analyze
+      {/* The button now uses the isLoading prop */}
+      <button
+        onClick={handleAnalyze}
+        className="analyze-button"
+        disabled={isLoading}
+      >
+        {isLoading ? 'Analyzing...' : 'Analyze'}
       </button>
     </section>
   );

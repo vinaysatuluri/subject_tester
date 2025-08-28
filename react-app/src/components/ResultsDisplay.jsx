@@ -1,8 +1,27 @@
 // src/components/ResultsDisplay.jsx
 
-// 1. Receive the `results` prop from the App component
-function ResultsDisplay({ results }) {
-  // 2. If `results` is null (the initial state), show a placeholder message.
+function ResultsDisplay({ results, error, isLoading }) {
+  // 1. Show a loading message when the API call is in progress
+  if (isLoading) {
+    return (
+      <section className="results-container">
+        <h2>Analyzing...</h2>
+        <p>Please wait while we check your subject line.</p>
+      </section>
+    );
+  }
+
+  // 2. Show an error message if the API call failed
+  if (error) {
+    return (
+      <section className="results-container">
+        <h2>Error</h2>
+        <p style={{ color: 'red' }}>{error}</p>
+      </section>
+    );
+  }
+
+  // 3. Show the initial placeholder message if there are no results yet
   if (!results) {
     return (
       <section className="results-container">
@@ -12,7 +31,7 @@ function ResultsDisplay({ results }) {
     );
   }
 
-  // 3. If `results` has data, show the analysis with dynamic values.
+  // 4. If everything is successful, show the results
   return (
     <section className="results-container">
       <h2>Analysis</h2>
